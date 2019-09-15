@@ -1,5 +1,5 @@
-project(lab1)
+project(oop_exercise_01)
 
-add_executable(lab1
+add_executable(oop_exercise_01
     main.cpp
 )
