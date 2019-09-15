@@ -1,0 +1,7 @@
+Addition: 2 2
+Subtraction: 0 0
+Multiplication: 0 2
+Division: 1 0
+Comparsion a == b: 1
+Conjugate number: a = 1 -1 b = 1 -1
+Module comparsion: 0
