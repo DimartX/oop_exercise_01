@@ -84,9 +84,9 @@ int main(){
         std::cout << "Division: " <<
             a.div(b).a << " " << a.div(b).b << '\n';
         std::cout << "Comparsion a == b: " << a.equ(b) << '\n';
-        std::cout << "Conjugate number: " <<
-            " ~a = " << a.conj().a << ' ' << a.conj().b <<
-            " ~b = " << b.conj().a << ' ' << b.conj().b << '\n';
+        std::cout << "Conjugate number:" <<
+            " a = " << a.conj().a << ' ' << a.conj().b <<
+            " b = " << b.conj().a << ' ' << b.conj().b << '\n';
         std::cout << "Module comparsion: " << a.cmp(b) << '\n';
     }
     
