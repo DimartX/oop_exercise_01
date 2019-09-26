@@ -59,6 +59,12 @@ public:
             : -1;
     }
 
-    void read(std::istream& in);
-    void write(std::ostream& out) const;
+    void read(std::istream& in){
+        in >> a >> b;
+    }
+
+    void write(std::ostream& out) const{
+        out << a << ' ' << b << std::endl;
+    }
+    
 };
