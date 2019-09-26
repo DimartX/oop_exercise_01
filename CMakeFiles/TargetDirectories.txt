@@ -1,0 +1,2 @@
+/home/amder/Documents/MAI/3_sem/OOP/oop_exercise_01/CMakeFiles/rebuild_cache.dir
+/home/amder/Documents/MAI/3_sem/OOP/oop_exercise_01/CMakeFiles/edit_cache.dir
