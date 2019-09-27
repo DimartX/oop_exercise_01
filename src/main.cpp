@@ -1,8 +1,10 @@
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 #include <Complex.hpp>
 
 int main(){
+    std::cout << std::fixed << std::setprecision(3);
     Complex a, b;
     a.read(std::cin);
     b.read(std::cin);

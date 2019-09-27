@@ -37,7 +37,7 @@ public:
         double den = (other.a * other.a + other.b * other.b);            
         return Complex(
                        (this->a * other.a + this->b * other.b) / den,
-                       (this->a * other.b - this->b * other.a) / den
+                       (this->b * other.a - this->a * other.b) / den
                        );
     }
 

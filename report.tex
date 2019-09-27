@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage{multicol,multirow}
+\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{minted}
+
+\usepackage{color} %% это для отображения цвета в коде
+\usepackage{listings} %% собственно, это и есть пакет listings
+
+\lstset{ %
+language=C,                 % выбор языка для подсветки (здесь это С)
+basicstyle=\small\sffamily, % размер и начертание шрифта для подсветки кода
+numbers=left,               % где поставить нумерацию строк (слева\справа)
+%numberstyle=\tiny,           % размер шрифта для номеров строк
+stepnumber=1,                   % размер шага между двумя номерами строк
+numbersep=5pt,                % как далеко отстоят номера строк от подсвечиваемого кода
+backgroundcolor=\color{white}, % цвет фона подсветки - используем \usepackage{color}
+showspaces=false,            % показывать или нет пробелы специальными отступами
+showstringspaces=false,      % показывать или нет пробелы в строках
+showtabs=false,             % показывать или нет табуляцию в строках
+frame=single,              % рисовать рамку вокруг кода
+tabsize=2,                 % размер табуляции по умолчанию равен 2 пробелам
+captionpos=t,              % позиция заголовка вверху [t] или внизу [b] 
+breaklines=true,           % автоматически переносить строки (да\нет)
+breakatwhitespace=false, % переносить строки только если есть пробел
+escapeinside={\%*}{*)}   % если нужно добавить комментарии в коде
+}
+
+% Оригиналный шаблон: http://k806.ru/dalabs/da-report-template-2012.tex
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textbf{МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСОЙ ФЕДЕРАЦИИ
+\medskip
+МОСКОВСКИЙ АВЦИАЦИОННЫЙ ИНСТИТУТ
+(НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЬЕЛЬСКИЙ УНИВЕРСТИТЕТ)
+\vfill\vfill
+{\Huge ЛАБОРАТОРНАЯ РАБОТА №1} 
+по курсу объектно-ориентированное программирование
+I семестр, 2019/20 уч. год}
+\end{center}
+\vfill
+
+Студент \uline{\it {Артемьев Дмитрий Иванович, группа М8О-206Б-18}\hfill}
+
+Преподаватель \uline{\it {Журавлёв Андрей Андреевич}\hfill}
+
+\vfill
+\end{titlepage}
+
+\subsection*{Условие}
+
+Задание №1: написать класс, который реализует комплексные числа в алгебраической форме с операциями: 
+\begin{enumerate}
+\item сложения add, (a, b) + (c, d) = (a + c, b + d);
+\item вычитания sub, (a, b) – (c, d) = (a – c, b – d);
+\item умножения mul, (a, b)  ́ (c, d) = (ac – bd, ad + bc);
+\item деления div, (a, b) / (c, d) = (ac + bd, bc – ad) / (c2 + d2);
+\item сравнение equ, (a, b) = (c, d), если (a = c) и (b = d);
+\item сопряженное число conj, conj(a, b) = (a, –b);
+\item сравнения модулей.
+\end{enumerate}
+
+\subsection*{Описание программы}
+
+Исходный код лежит в 2 файлах:
+\begin{enumerate}
+\item src/main.cpp: основная программа, которая считывает 2 комплексных числа и обрабатывает их 
+\item include/complex.hpp: описание класса, объявление и реализация методов операций
+\end{enumerate}
+
+\subsection*{Дневник отладки}
+
+Самое нудное в лабораторных - писать тесты и отчёты.
+
+\subsection*{Недочёты}
+
+В TeXe неудобно писать, нужно допилить шаблоны для org-mode.
+Чекер разбит на 3 файла.
+Недокументированный код.
+
+\subsection*{Выводы}
+
+Не стоит писать лабы ночью.
+
+\vfill
+
+\subsection*{Исходный код}
+
+\begin{lstlisting}[label=some-code,caption={main.cpp}]
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include <Complex.hpp>
+
+int main(){
+    std::cout << std::fixed << std::setprecision(3);
+    Complex a, b;
+    a.read(std::cin);
+    b.read(std::cin);
+
+    std::cout << "Addition: ";
+    a.add(b).write(std::cout);
+
+    std::cout << "Subtraction: ";
+    a.sub(b).write(std::cout);
+
+    std::cout << "Multiplication: ";
+    a.mul(b).write(std::cout);
+
+    std::cout << "Division: ";
+    a.div(b).write(std::cout);
+
+    std::cout << "Comparsion a == b: " << a.equ(b) << std::endl;
+
+    std::cout << "Conjugate numbers: \n";
+    a.conj().write(std::cout);
+    b.conj().write(std::cout);
+
+    std::cout << "Module comparsion: " << a.cmp(b) << std::endl;
+
+    return 0;
+} 
+
+\end{lstlisting}
+\pagebreak
+
+\begin{lstlisting}[label=some-code,caption={Complex.hpp}]
+#pragma once
+
+#include <cmath>
+#include <iostream>
+
+class Complex{
+private:
+    double a, b;
+
+public:
+    Complex() {};
+
+    Complex(double a, double b):
+        a(a), b(b) {};
+    
+    Complex(Complex const& other){
+        this->a = other.a;
+        this->b = other.b;
+    }
+    
+    ~Complex (){};
+
+    Complex add(Complex const& other) const {
+        return Complex(this->a + other.a, this->b + other.b);
+    }
+    
+    Complex sub(Complex const& other) const {
+        return Complex(this->a - other.a, this->b - other.b);
+    }
+    
+    Complex mul(Complex const& other) const {
+        return Complex(this->a * other.a - this->b * other.b,
+                       this->a * other.b + this->b * other.a);
+    }
+    
+    Complex div(Complex const& other) const {
+        double den = (other.a * other.a + other.b * other.b);            
+        return Complex(
+                       (this->a * other.a + this->b * other.b) / den,
+                       (this->b * other.a - this->a * other.b) / den
+                       );
+    }
+
+    Complex conj() const {
+        return Complex(this->a, -this->b);
+    }
+
+    double mdl() const {
+        return sqrt(this->a * this->a + this->b * this->b);
+    }
+    
+    bool equ(Complex const& other) const {
+        return (this->a == other.a) && (this->b == other.b);
+    }
+
+    int cmp(Complex const& other) const{
+        return (this->mdl() > other.mdl()) ? 1
+            : (this->mdl() == other.mdl()) ? 0
+            : -1;
+    }
+
+    void read(std::istream& in){
+        in >> a >> b;
+    }
+
+    void write(std::ostream& out) const{
+        out << a << ' ' << b << std::endl;
+    }
+    
+};
+
+\end{lstlisting}
+\pagebreak
+
+\end{document}
