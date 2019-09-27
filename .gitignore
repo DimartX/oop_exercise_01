@@ -1,2 +1,4 @@
 build/
 /_minted-report/
+CMakeCache.txt
+Makefile
