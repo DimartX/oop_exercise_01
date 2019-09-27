@@ -59,7 +59,7 @@ I семестр, 2019/20 уч. год}
 \begin{enumerate}
 \item сложения add, (a, b) + (c, d) = (a + c, b + d);
 \item вычитания sub, (a, b) – (c, d) = (a – c, b – d);
-\item умножения mul, (a, b)  ́ (c, d) = (ac – bd, ad + bc);
+\item умножения mul, (a, b) * (c, d) = (ac – bd, ad + bc);
 \item деления div, (a, b) / (c, d) = (ac + bd, bc – ad) / (c2 + d2);
 \item сравнение equ, (a, b) = (c, d), если (a = c) и (b = d);
 \item сопряженное число conj, conj(a, b) = (a, –b);
@@ -68,10 +68,11 @@ I семестр, 2019/20 уч. год}
 
 \subsection*{Описание программы}
 
-Исходный код лежит в 2 файлах:
+Исходный код лежит в 3 файлах:
 \begin{enumerate}
 \item src/main.cpp: основная программа, которая считывает 2 комплексных числа и обрабатывает их 
-\item include/complex.hpp: описание класса, объявление и реализация методов операций
+\item include/Complex.hpp: описание класса, объявление и реализация методов операций
+\item src/Complex.cpp: реализация нереализованных методов класса комплексных чисел, чтобы было
 \end{enumerate}
 
 \subsection*{Дневник отладки}
@@ -192,17 +193,25 @@ public:
             : -1;
     }
 
-    void read(std::istream& in){
-        in >> a >> b;
-    }
-
-    void write(std::ostream& out) const{
-        out << a << ' ' << b << std::endl;
-    }
-    
+    void read(std::istream& in);
+    void write(std::ostream& out) const;
 };
 
 \end{lstlisting}
 \pagebreak
+\begin{lstlisting}[label=some-code,caption={Complex.cpp}]
+
+#include <Complex.hpp>
+#include <iostream>
+
+void Complex::read(std::istream& in){
+    in >> a >> b;
+}
+
+void Complex::write(std::ostream& out) const{
+    out << a << ' ' << b << std::endl;
+}
+
+\end{lstlisting}
 
 \end{document}
